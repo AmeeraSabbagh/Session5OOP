@@ -1,0 +1,5 @@
+BeefBurger 5.5
+CheckinBurger 4.5
+Pizza 5.0
+FuzzyDrinks 1.5
+Water 0.5
