@@ -1,6 +1,6 @@
 package jo.secondstep.People;
 
-import java.sql.Date;
+import java.util.Date;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -13,8 +13,8 @@ public class Customer extends Person {
 	private String customer_location;
 	private long customerPhone;
 	List<Items> order = new ArrayList<Items>();
-	public Customer(String name, String birthDate, String customer_location, long customerPhone) {
-		super(name, birthDate);
+	public Customer(String name, Date birth, String customer_location, long customerPhone) {
+		super(name, birth);
 		this.customer_location = customer_location;
 		this.customerPhone = customerPhone;
 	}

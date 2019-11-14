@@ -1,13 +1,13 @@
 package jo.secondstep.People;
 
-import java.sql.Date;
+import java.util.Date;;
 
 public class Person {
 	String name;
-	public Person(String name, String  birthDate) {
+	public Person(String name, Date  birth) {
 		super();
 		this.name = name;
-		this.birthDate = birthDate;
+		this.birthDate = birth;
 	}
 	public String getName() {
 		return name;
@@ -15,12 +15,12 @@ public class Person {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public String  getBirthDate() {
+	public Date getBirthDate() {
 		return birthDate;
 	}
-	public void setBirthDate(String  birthDate) {
+	public void setBirthDate(Date  birthDate) {
 		this.birthDate = birthDate;
 	}
-	String birthDate;
+	Date birthDate;
 	
 }

@@ -7,33 +7,36 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.sql.Date;
+
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import java.util.Date;
 import jo.secondstep.People.Customer;
 import jo.secondstep.People.Employee;
-
+import java.util.*;
 public class Session5_OOP {
 
 	public static void main(String[] args) throws ParseException {
 		// TODO Auto-generated method stub
-		int count=(int) ((Math.random() * ((100 - 1) + 1)) + 1);
+		int count = (int) ((Math.random() * ((100 - 1) + 1)) + 1);
 		Path MenuPath = Paths.get("Menu.txt");
 		File MenuFile = MenuPath.toFile();
 		Path EmployeePath = Paths.get("Employee.txt");
 		File EmployeeFile = EmployeePath.toFile();
-		SimpleDateFormat formatter1 = new SimpleDateFormat("dd/MM/yyyy");
+		// SimpleDateFormat formatter1 = new SimpleDateFormat("dd/MM/yyyy");
+		DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 		final String FIELD_SEP = " ";
 		String resturant_name = "Seond Step";
 		String resturant_address = "Irbid";
 		long resturant_phone = 788888887;
 		List<Items> items = new ArrayList<Items>();
 		Items item = new Items();
-		
+
 		if (Files.exists(MenuPath)) {
 			try {
 				try (BufferedReader in = new BufferedReader(new FileReader(MenuFile))) {
@@ -61,7 +64,7 @@ public class Session5_OOP {
 
 		List<Employee> employees = new ArrayList<Employee>();
 		String name, employeeRole;
-		String birthDate;
+		Date birthDate=new Date();
 		int employeeId;
 
 		if (Files.exists(EmployeePath)) {
@@ -72,7 +75,12 @@ public class Session5_OOP {
 					while (line != null) {
 						String[] columns = line.split(FIELD_SEP);
 						name = columns[0];
-						birthDate = columns[1];
+						 try {
+						birthDate =  dateFormat.parse(columns[1]);
+						 }
+						 catch (ParseException e) { 
+					         System.out.println("Parse Exception");
+					      }
 						employeeId = Integer.parseInt(columns[2]);
 						employeeRole = columns[3];
 
@@ -108,18 +116,22 @@ public class Session5_OOP {
 		customerLocation = in.nextLine();
 		System.out.println("Your Phone Number: ");
 		customerPhone = in.nextLong();
+		Date birth=new Date();
+		try {
+		 birth = (Date) dateFormat.parse(customer_BDate);
+		}
+		 catch (ParseException e) { 
+	         System.out.println("Parse Exception");
+	      }
+		Customer customer = new Customer(customer_name, birth, customerLocation, customerPhone);
 
-		Customer customer = new Customer(customer_name, customer_BDate, customerLocation, customerPhone);
-		
-		List<Items> menu= new ArrayList<Items>();
-		menu=customer.selectOrder(resturant);
-		Order order=new Order(customer,count,menu);
-		
+		List<Items> menu = new ArrayList<Items>();
+		menu = customer.selectOrder(resturant);
+		Order order = new Order(customer, count, menu);
+
 		resturant.setCustomer_order(order);
-	
-		System.out.println(resturant.calculateBill());
 
-	
+		System.out.println(resturant.calculateBill()+"");
 
-}
+	}
 }
